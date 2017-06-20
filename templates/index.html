@@ -1,0 +1,73 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>The World of Star Wars</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/static/css/style.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script src="static/js/main.js"></script>
+</head>
+
+<body>
+  <div class='container-fluid'>
+    <h1> Planets of Star Wars Universe </h1>
+    <a href='{{ planet_data["previous"] }}'><button class="btn btn-info"> Previous Page</button></a>
+    <a href='{{ planet_data["next"] }}'><button class="btn btn-info"> Next Page </button></a>
+    <div id="table-wrapper">
+        <table class='table table-bordered table-hover table-responsive'>
+                <tr class='active'>
+                    {% for attribute in ['Name', 'Diameter', 'Climate', 'Terrain', 'Surface water', 'Population', 'Residents'] %}
+                    <td style="font-weight: bold">
+                        {{ attribute }}
+                    </td>
+                    {% endfor %}
+                </tr>
+            {% for planet in planet_data['results'] %}
+                <tr>
+                    <td> {{ planet['name'] }} </td>
+                    <td> {{ "{:,d}".format(planet['diameter'] | int) }} km </td>
+                    <td> {{ planet['climate'] }} </td>
+                    <td> {{ planet['terrain'] }} </td>
+                    <td> {{ planet['surface_water'] }} {% if planet['surface_water'] != 'unknown' %} % {% endif %} </td>
+                    <td> 
+                        {% if planet['population'] != 'unknown' %} 
+                        {{ "{:,d}".format(planet['population'] | int) }} people 
+                        {% else %} {{ planet['population'] }} 
+                        {% endif %} 
+                    </td>
+                    <td> 
+                        {% if planet['residents'] | length > 0 %} 
+                        <button type="button" class='btn btn-default' data-toggle="modal" data-target="#residents-modal" data-planet-name="{{ planet['name'] }}"> 
+                            {{ planet['residents'] | length }} resident{% if planet['residents'] | length > 1 %}s {% endif %} 
+                        </button> 
+                        {% else %} No known residents 
+                        {% endif %} 
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+  </div>
+
+  <!-- Modal -->
+  <div id="residents-modal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Residents</h4>
+                </div>
+                <div class="modal-body">
+                    <p>Some text in the modal.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
