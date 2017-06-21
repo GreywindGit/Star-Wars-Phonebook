@@ -4,41 +4,43 @@
 <head>
   <meta charset="utf-8">
   <title>The World of Star Wars</title>
+  <link rel="icon" type="img/png" href="/static/img/codecool.png">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <link rel="stylesheet" href="/static/css/style.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-  <script src="static/js/main.js"></script>
+  <script src="/static/js/main.js"></script>
 </head>
 
 <body>
   <div class='container-fluid'>
     <h1> Planets of Star Wars Universe </h1>
-    <a href='{{ planet_data["previous"] }}'><button class="btn btn-info"> Previous Page</button></a>
-    <a href='{{ planet_data["next"] }}'><button class="btn btn-info"> Next Page </button></a>
+    <button class="btn btn-info" id="btn-prev" data-previous=" {{ planet_data['previous'] }} " disabled> Previous Page</button>
+    <button class="btn btn-info" id="btn-next" data-next=" {{ planet_data['next'] }} "> Next Page </button>
     <div id="table-wrapper">
-        <table class='table table-bordered table-hover table-responsive'>
-                <tr class='active'>
+        <table class='table table-bordered table-striped table-responsive' id="main-table">
+                <tr class='info'>
                     {% for attribute in ['Name', 'Diameter', 'Climate', 'Terrain', 'Surface water', 'Population', 'Residents'] %}
                     <td style="font-weight: bold">
                         {{ attribute }}
                     </td>
                     {% endfor %}
                 </tr>
+            {% set counter = 0 %}
             {% for planet in planet_data['results'] %}
-                <tr>
-                    <td> {{ planet['name'] }} </td>
-                    <td> {{ "{:,d}".format(planet['diameter'] | int) }} km </td>
-                    <td> {{ planet['climate'] }} </td>
-                    <td> {{ planet['terrain'] }} </td>
-                    <td> {{ planet['surface_water'] }} {% if planet['surface_water'] != 'unknown' %} % {% endif %} </td>
-                    <td> 
+                <tr class="planet-data">
+                    <td class="planet-data"> {{ planet['name'] }} </td>
+                    <td class="planet-data"> {{ "{:,d}".format(planet['diameter'] | int) }} km </td>
+                    <td class="planet-data"> {{ planet['climate'] }} </td>
+                    <td class="planet-data"> {{ planet['terrain'] }} </td>
+                    <td class="planet-data"> {{ planet['surface_water'] }} {% if planet['surface_water'] != 'unknown' %} % {% endif %} </td>
+                    <td class="planet-data"> 
                         {% if planet['population'] != 'unknown' %} 
                         {{ "{:,d}".format(planet['population'] | int) }} people 
                         {% else %} {{ planet['population'] }} 
                         {% endif %} 
                     </td>
-                    <td> 
+                    <td class="planet-data"> 
                         {% if planet['residents'] | length > 0 %} 
                         <button type="button" class='btn btn-default' data-toggle="modal" data-target="#residents-modal" data-planet-name="{{ planet['name'] }}"> 
                             {{ planet['residents'] | length }} resident{% if planet['residents'] | length > 1 %}s {% endif %} 
@@ -47,6 +49,7 @@
                         {% endif %} 
                     </td>
                 </tr>
+                {% set counter = counter + 1 %}
             {% endfor %}
         </table>
     </div>
@@ -69,5 +72,6 @@
             </div>
         </div>
     </div>
+
 </body>
 </html>
