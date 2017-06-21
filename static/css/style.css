@@ -15,6 +15,10 @@ td {
     text-align: right;
 }
 
+#main-table-header, #mtable-header {
+    font-weight: bold;
+}
+
 @font-face {
     font-family: 'ITC Serif Gothic';
     src: url(/static/font/itc-serif-gothic.otf);

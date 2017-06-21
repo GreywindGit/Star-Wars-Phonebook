@@ -19,7 +19,7 @@
     <button class="btn btn-info" id="btn-next" data-next=" {{ planet_data['next'] }} "> Next Page </button>
     <div id="table-wrapper">
         <table class='table table-bordered table-striped table-responsive' id="main-table">
-                <tr class='info'>
+                <tr id="main-table-header" class='info'>
                     {% for attribute in ['Name', 'Diameter', 'Climate', 'Terrain', 'Surface water', 'Population', 'Residents'] %}
                     <td>
                         {{ attribute }}
