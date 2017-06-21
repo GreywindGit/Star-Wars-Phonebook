@@ -1,4 +1,10 @@
 $(document).ready(function() {
+    var userName = sessionStorage.getItem('username');
+    if (!userName) {
+        $('#btn-row').append('<div class="col-md-3 col-xs-offset-2 col-md-offset-6"> \
+                              <button id="btn-login" class="btn btn-info" data-toggle="modal" data-target="#login-modal">Login</button> or \
+                              <button id="btn-reg" class="btn btn-info" data-toggle="modal" data-target="#register-modal">Register</button></div>');
+    }
     $('#residents-modal').on('show.bs.modal', function(event) {
         var button = $(event.relatedTarget);
         var planet = button.data('planet-name');
