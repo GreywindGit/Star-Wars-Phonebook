@@ -21,7 +21,7 @@
         <table class='table table-bordered table-striped table-responsive' id="main-table">
                 <tr class='info'>
                     {% for attribute in ['Name', 'Diameter', 'Climate', 'Terrain', 'Surface water', 'Population', 'Residents'] %}
-                    <td style="font-weight: bold">
+                    <td>
                         {{ attribute }}
                     </td>
                     {% endfor %}
@@ -42,7 +42,7 @@
                     </td>
                     <td class="planet-data"> 
                         {% if planet['residents'] | length > 0 %} 
-                        <button type="button" class='btn btn-default' data-toggle="modal" data-target="#residents-modal" data-planet-name="{{ planet['name'] }}"> 
+                        <button type="button" class='btn btn-default' data-toggle="modal" data-target="#residents-modal" data-planet-name="{{ planet['name'] }}" data-planet-url="{{ planet['url'] }}"> 
                             {{ planet['residents'] | length }} resident{% if planet['residents'] | length > 1 %}s {% endif %} 
                         </button> 
                         {% else %} No known residents 
@@ -55,16 +55,23 @@
     </div>
   </div>
 
-  <!-- Modal -->
+  <!-- Residents Modal -->
   <div id="residents-modal" class="modal fade" role="dialog">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                     <h4 class="modal-title">Residents</h4>
                 </div>
                 <div class="modal-body">
-                    <p>Some text in the modal.</p>
+                    {% set resident_table_header = ['Name', 'Height', 'Mass', 'Skin colour', 'Hair colour', 'Eye colour', 'Birth year', 'Gender'] %}
+                    <table class="table table-bordered table-striped" id="modal-table">
+                        <tr id="mtable-header" class="info">
+                            {% for attribute in resident_table_header %}
+                            <td> {{ attribute }} </td>
+                            {% endfor %}
+                        </tr>
+                    </table>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
