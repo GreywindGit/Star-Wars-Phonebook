@@ -1,3 +1,11 @@
+body {
+    font-family: 'ITC Serif Gothic', serif;
+}
+
+.page-header {
+    margin-left: 1%;
+}
+
 #table-wrapper {
     margin-top: 1.5em;
     width: 80%;
@@ -5,4 +13,9 @@
 
 td {
     text-align: right;
+}
+
+@font-face {
+    font-family: 'ITC Serif Gothic';
+    src: url(/static/font/itc-serif-gothic.otf);
 }
