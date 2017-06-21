@@ -14,9 +14,11 @@
 
 <body>
   <div class='page-header'><h1> Planets of Star Wars Universe </h1></div>
-  <div class='container-fluid'>
-    <button class="btn btn-info" id="btn-prev" data-previous=" {{ planet_data['previous'] }} " disabled> Previous Page</button>
-    <button class="btn btn-info" id="btn-next" data-next=" {{ planet_data['next'] }} "> Next Page </button>
+  <div class='container-fluid' id="container">
+    <div class='row' id="btn-row">
+        <div class="col-md-1"><button class="btn btn-info" id="btn-prev" data-previous=" {{ planet_data['previous'] }} " disabled> Previous Page</button></div>
+        <div class="col-md-1"><button class="btn btn-info" id="btn-next" data-next=" {{ planet_data['next'] }} "> Next Page </button></div>
+    </div>
     <div id="table-wrapper">
         <table class='table table-bordered table-striped table-responsive' id="main-table">
                 <tr id="main-table-header" class='info'>
@@ -72,6 +74,54 @@
                             {% endfor %}
                         </tr>
                     </table>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Login Modal -->
+    <div id="login-modal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Login</h4>
+                </div>
+                <div class="modal-body">
+                    <form action="/login" method="POST">
+                        <label for="username">Username</label><br>
+                        <input id="login-username" name="username" autofocus required><br>
+                        <label for="password">Password</label><br>
+                        <input id="login-password" type="password" name="password" required></br>
+                        <button type="submit" class="btn btn-default" id="login-submit" data-dismiss="modal">Login</button>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Register Modal -->
+    <div id="register-modal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">New User</h4>
+                </div>
+                <div class="modal-body">
+                    <form action="/register" method="POST">
+                        <label for="username">Username</label><br>
+                        <input id="register-username" name="username" autofocus required><br>
+                        <label for="password">Password</label><br>
+                        <input id="register-password" type="password" name="password" required></br>
+                        <button type="submit" class="btn btn-default" id="register-submit" data-dismiss="modal">Register</button>
+                    </form>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
