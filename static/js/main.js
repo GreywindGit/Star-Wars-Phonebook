@@ -2,17 +2,21 @@ $(document).ready(function() {
     $('#residents-modal').on('show.bs.modal', function(event) {
         var button = $(event.relatedTarget);
         var planet = button.data('planet-name');
+        var planetURL = button.data('planet-url');
         var modal = $(this);
-        // get planet url for a get request that returns the planet belonging to the button -
-        // then I can loop through the planet['residents'] array to get residents' data
+        modal.find('.modal-row').remove();
         modal.find('.modal-title').text('Residents of ' + planet);
-        modal.find('.modal-body').text('Here comes some information about residents of ' + planet); 
+        $.get(planetURL, function(result) {
+            var residentURLs = result['residents'];
+            displayResidents(residentURLs);
+        });
     })
     $('#btn-next').on('click', function() {
         var nextPage = $(this).data('next');
         $.get(nextPage, function(result) {
             var newData = result;
             changeTableData(newData);
+            updatePageButtons(newData);
         });
     })
     $('#btn-prev').on('click', function() {
@@ -20,6 +24,7 @@ $(document).ready(function() {
         $.get(prevPage, function(result) {
             var newData = result;
             changeTableData(newData);
+            updatePageButtons(newData);
         })
     })
 })
@@ -64,20 +69,43 @@ function changeTableData(newData) {
                 var residentSuffix = '';
             }
             $("#data-row-" + i).append('<td><button class="btn btn-default" data-toggle="modal" data-target="#residents-modal" data-planet-name="' + 
-                                        planet['name'] + '">' + planet['residents'].length + ' resident' + residentSuffix + '</button></td>');
+                                        planet['name'] + '" data-planet-url="' + planet['url'] + '">' + planet['residents'].length + ' resident' + 
+                                        residentSuffix + '</button></td>');
         }
     }
-    
+}
+
+
+function updatePageButtons(newData) {
     $('#btn-next').data('next', newData['next']);
-    if (!newData['next']) {
+    $('#btn-prev').data('previous', newData['previous']);
+    if (!newData['next'] && !$('#btn-next').attr('disabled')) {
         $('#btn-next').attr('disabled', 'disabled');
-    } else {
+    }
+    if ($('#btn-next').attr('disabled') && newData['next']) {
         $('#btn-next').removeAttr('disabled');
     }
-    $('#btn-prev').data('previous', newData['previous']);
-    if (!newData['previous']) {
+    if (!newData['previous'] && !$('#btn-prev').attr('disabled')) {
         $('#btn-prev').attr('disabled', 'disabled');
-    } else {
+    }
+    if ($('#btn-prev').attr('disabled') && newData['previous']) {
         $('#btn-prev').removeAttr('disabled');
+    }
+}
+
+
+function displayResidents(residentURLs) {
+    for (let i = 0; i < residentURLs.length; i++) {
+        $.get(residentURLs[i], function(resident) {
+            $('#modal-table').append('<tr class="modal-row" id="mtable-row-' + i +'"></tr>');
+            $('#mtable-row-' + i).append('<td>' + resident['name'] + '</td>');
+            $('#mtable-row-' + i).append('<td>' + resident['height'] / 100 + ' m</td>');
+            $('#mtable-row-' + i).append('<td>' + resident['mass'] + (resident['mass'] === 'unknown' ? '</td>' : ' kg</td>'));
+            $('#mtable-row-' + i).append('<td>' + resident['skin_color'] + '</td>');
+            $('#mtable-row-' + i).append('<td>' + resident['hair_color'] + '</td>');
+            $('#mtable-row-' + i).append('<td>' + resident['eye_color'] + '</td>');
+            $('#mtable-row-' + i).append('<td>' + resident['birth_year'] + '</td>');
+            $('#mtable-row-' + i).append('<td>' + resident['gender'] + '</td>');
+        })
     }
 }
