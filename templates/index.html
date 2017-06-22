@@ -28,8 +28,12 @@
             <a href="/register"><button class="btn btn-info" id="btn-register">Register</button></a>
         </div>
         {% else %}
-        <div class="col-md-1 col-md-offset-5"><h5> {{ username }} </h5></div>
-        <div class="col-md-1"><button class="btn btn-info" id="btn-logout">Logout</button></div>
+        <div class="col-xs-2 col-md-1 col-xs-offset-4 col-md-offset-5">
+            <h5>Welcome, {{ username }} </h5>
+        </div>
+        <div class="col-xs-2 col-md-1">
+            <a href="/logout"><button class="btn btn-info" id="btn-logout">Logout</button></a>
+        </div>
         {% endif %}
     </div>
     <div id="table-wrapper">
@@ -40,6 +44,9 @@
                         {{ attribute }}
                     </td>
                     {% endfor %}
+                    {% if username %}
+                    <td> Vote </td>
+                    {% endif %}
                 </tr>
             {% set counter = 0 %}
             {% for planet in planet_data['results'] %}
@@ -64,7 +71,7 @@
                         {% endif %} 
                     </td>
                     {% if username %}
-                    <td></td>
+                    <td><button class="btn btn-default"><span class="glyphicon glyphicon-plus"></span></button></td>
                     {% endif %}
                 </tr>
                 {% set counter = counter + 1 %}

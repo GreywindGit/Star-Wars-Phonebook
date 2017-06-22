@@ -72,6 +72,11 @@ function changeTableData(newData) {
                                         planet['name'] + '" data-planet-url="' + planet['url'] + '">' + planet['residents'].length + ' resident' + 
                                         residentSuffix + '</button></td>');
         }
+        $.get('/login_status', function(user_result) {
+            if (user_result.length > 0) {
+                $("#data-row-" + i).append('<td><button class="btn btn-default"><span class="glyphicon glyphicon-plus"></span></button></td>');
+            }
+        });
     }
 }
 
