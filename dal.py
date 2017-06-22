@@ -27,8 +27,8 @@ def get_data_from_table(sql_string, sql_variables=None):
     return result_set
 
 
-def modify_table():
-    conn = establish_connection(sql_string, sql_variables=None)
+def modify_table(sql_string, sql_variables=None):
+    conn = establish_connection()
     cursor = conn.cursor()
     cursor.execute(sql_string, sql_variables)
     cursor.close()
