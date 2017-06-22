@@ -6,6 +6,10 @@ body {
     margin-left: 1%;
 }
 
+.page-header span {
+    margin-left: 2%;
+}
+
 #table-wrapper {
     margin-top: 1.5em;
     width: 80%;
@@ -17,6 +21,17 @@ td {
 
 #main-table-header, #mtable-header {
     font-weight: bold;
+}
+
+form {
+    width: 25%;
+}
+
+.main-logo {
+    height: auto;
+    width: auto;
+    max-height: 100px;
+    max-width: 200px;
 }
 
 @font-face {
