@@ -1,0 +1,44 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>The World of Star Wars - {{ title }}</title>
+  <link rel="icon" type="img/png" href="/static/img/codecool.png">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/static/css/style.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script src="/static/js/main.js"></script>
+</head>
+
+<body>
+    <div class="page-header">
+        {% if action == 'Login' %}
+        <h1>User Login</h1>
+        {% else %}
+        <h1>New User Registration</h1>
+        {% endif %}
+    </div>
+    <div class="container-fluid">
+    <form action="{{ route }}" method="POST">
+        <div class="form-group">
+            <label for="username">Username</label>
+            <input type="text" class="form-control" id="username" placeholder="Username" required minlength="5">
+            <p class="help-block">Username must be at least 5 character long.</p>
+        </div>
+        <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" class="form-control" id="password" placeholder="Password" required minlength="8">
+            <p class="help-block">Password must be at least 8 character long.</p>
+        </div>
+        <div class="checkbox">
+            <label>
+            <input type="checkbox"> I'm a Rebel
+            </label>
+        </div>
+        <button type="submit" class="btn btn-default">{{ action }}</button>
+    </form>
+    </div>
+</body>
+</html>
