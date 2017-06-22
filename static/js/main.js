@@ -1,10 +1,4 @@
 $(document).ready(function() {
-    var userName = sessionStorage.getItem('username');
-    if (!userName) {
-        $('#btn-row').append('<div class="col-md-3 col-xs-offset-2 col-md-offset-6"> \
-                              <button id="btn-login" class="btn btn-info" data-toggle="modal" data-target="#login-modal">Login</button> or \
-                              <button id="btn-reg" class="btn btn-info" data-toggle="modal" data-target="#register-modal">Register</button></div>');
-    }
     $('#residents-modal').on('show.bs.modal', function(event) {
         var button = $(event.relatedTarget);
         var planet = button.data('planet-name');
@@ -105,7 +99,7 @@ function displayResidents(residentURLs) {
         $.get(residentURLs[i], function(resident) {
             $('#modal-table').append('<tr class="modal-row" id="mtable-row-' + i +'"></tr>');
             $('#mtable-row-' + i).append('<td>' + resident['name'] + '</td>');
-            $('#mtable-row-' + i).append('<td>' + resident['height'] / 100 + ' m</td>');
+            $('#mtable-row-' + i).append('<td>' + (resident['height'] !== 'unknown' ? (resident['height'] / 100 + ' m</td>') : (resident['height'] + '</td>')));
             $('#mtable-row-' + i).append('<td>' + resident['mass'] + (resident['mass'] === 'unknown' ? '</td>' : ' kg</td>'));
             $('#mtable-row-' + i).append('<td>' + resident['skin_color'] + '</td>');
             $('#mtable-row-' + i).append('<td>' + resident['hair_color'] + '</td>');
