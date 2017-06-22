@@ -31,6 +31,8 @@ def do_login():
     rebel = request.form.get('rebel')
     hashed_password = hashlib.sha256(str.encode(password)).hexdigest()
     user_id = bll.validate_user(username, hashed_password)
+    if not rebel:
+        return render_template('rebellion.html')
     if user_id:
         session['username'] = username
         return redirect('/')
