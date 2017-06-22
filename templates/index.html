@@ -16,8 +16,17 @@
   <div class='page-header'><h1> Planets of Star Wars Universe </h1></div>
   <div class='container-fluid' id="container">
     <div class='row' id="btn-row">
-        <div class="col-md-1"><button class="btn btn-info" id="btn-prev" data-previous=" {{ planet_data['previous'] }} " disabled> Previous Page</button></div>
-        <div class="col-md-1"><button class="btn btn-info" id="btn-next" data-next=" {{ planet_data['next'] }} "> Next Page </button></div>
+        <div class="col-xs-2 col-md-1"><button class="btn btn-info" id="btn-prev" data-previous=" {{ planet_data['previous'] }} " disabled> Previous Page</button></div>
+        <div class="col-xs-2 col-md-1"><button class="btn btn-info" id="btn-next" data-next=" {{ planet_data['next'] }} "> Next Page </button></div>
+        {% if not username %}
+        <div class="col-xs-4 col-md-2 col-xs-offset-4 col-md-offset-6">
+            <a href="/login"><button class="btn btn-info" id="btn-login">Login</button></a> or
+            <a href="/register"><button class="btn btn-info" id="btn-register">Register</button></a>
+        </div>
+        {% else %}
+        <div class="col-md-1 col-md-offset-5"><h5> {{ username }} </h5></div>
+        <div class="col-md-1"><button class="btn btn-info" id="btn-logout">Logout</button></div>
+        {% endif %}
     </div>
     <div id="table-wrapper">
         <table class='table table-bordered table-striped table-responsive' id="main-table">
@@ -50,6 +59,9 @@
                         {% else %} No known residents 
                         {% endif %} 
                     </td>
+                    {% if username %}
+                    <td></td>
+                    {% endif %}
                 </tr>
                 {% set counter = counter + 1 %}
             {% endfor %}
