@@ -1,38 +1,72 @@
-from flask import Flask, render_template, request, redirect
+from flask import Flask, render_template, request, redirect, session, flash
 import requests
+import bll
+import hashlib
+import credentials
 
 app = Flask(__name__)
+app.secret_key = credentials.secret_key
 
 
 @app.route('/')
 def main_page():
     planet_data = requests.get('https://swapi.co/api/planets').json()
-    return render_template('index.html', planet_data=planet_data)
+    if 'username' in session:
+        user = session['username']
+    else:
+        user = None
+    return render_template('index.html', planet_data=planet_data, username=user)
 
 
 @app.route('/login', methods=['GET'])
 def show_login():
-    return render_template('login.html')
+    return render_template('form.html', action='Login', route='/login', title='Login')
 
 
 @app.route('/login', methods=['POST'])
 def do_login():
-    return redirect(request.referrer)
+    username = request.form['username']
+    password = request.form['password']
+    rebel = request.form.get('rebel')
+    hashed_password = hashlib.sha256(str.encode(password)).hexdigest()
+    user_id = bll.validate_user(username, hashed_password)
+    if user_id:
+        session['username'] = username
+        return redirect('/')
+    else:
+        return render_template('form.html', action='Login', route='/login', title='Login',
+                               login_error=True, username=username)
 
 
 @app.route('/register', methods=['GET'])
 def show_register():
-    return render_template('register.html')
+    return render_template('form.html', action='Register', route='/register', title='Registration')
 
 
 @app.route('/register', methods=['POST'])
 def do_register():
-    return redirect(request.referrer)
+    username = request.form['username']
+    password = request.form['password']
+    hashed_password = hashlib.sha256(str.encode(password)).hexdigest()
+    user_id = bll.register_user(username, hashed_password)
+    if user_id > 0:
+        return redirect('/')
+    else:
+        return render_template('form.html', action='Register', route='/register', title='Registration',
+                               reg_error=True, username=username)
 
 
 @app.route('/logout')
 def do_logout():
+    session.pop('username', None)
     return redirect(request.referrer)
+
+
+@app.route('/login_status')
+def check_login_status():
+    if 'username' in session:
+        return session['username']
+    return ''
 
 
 if __name__ == '__main__':
