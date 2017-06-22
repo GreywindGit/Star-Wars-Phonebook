@@ -74,7 +74,8 @@ function changeTableData(newData) {
         }
         $.get('/login_status', function(user_result) {
             if (user_result.length > 0) {
-                $("#data-row-" + i).append('<td><button class="btn btn-default"><span class="glyphicon glyphicon-plus"></span></button></td>');
+                $("#data-row-" + i).append('<td><form action="/vote" method="GET"><button type="submit class="btn btn-default btn-vote" name="planet-url"\
+                                           value="' + planet['url'] + '"><span class="glyphicon glyphicon-plus"></span></button></form></td>');
             }
         });
     }

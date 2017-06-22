@@ -3,6 +3,7 @@ import requests
 import bll
 import hashlib
 import credentials
+from datetime import datetime
 
 app = Flask(__name__)
 app.secret_key = credentials.secret_key
@@ -67,6 +68,16 @@ def check_login_status():
     if 'username' in session:
         return session['username']
     return ''
+
+
+@app.route('/vote', methods=['GET'])
+def do_vote():
+    planet_url = request.args.get('planet-url')
+    planet_id = planet_url.split('/')[-2]
+    submission_time = datetime.now().replace(microsecond=0)
+    user_id = bll.get_user_id(session['username'])
+    bll.insert_vote(planet_id, user_id, submission_time)
+    return redirect(request.referrer)
 
 
 if __name__ == '__main__':

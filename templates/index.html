@@ -14,7 +14,7 @@
 
 <body>
   <div class='page-header'>
-      <h1><a href="/"><img src="/static/img/sw-logo.png" class="main-logo"></a> Planets of Star Wars Universe </h1>
+      <h1><a href="/"><img src="/static/img/sw-logo.png" class="main-logo"></a> <span>Planets of Star Wars Universe </span></h1>
   </div>
   <div class='container-fluid' id="container">
     <div class='row' id="btn-row">
@@ -71,7 +71,11 @@
                         {% endif %} 
                     </td>
                     {% if username %}
-                    <td><button class="btn btn-default"><span class="glyphicon glyphicon-plus"></span></button></td>
+                    <td>
+                        <form action="/vote" method="GET">
+                            <button type="submit" class="btn btn-default btn-vote" name="planet-url" value="{{ planet['url'] }}"><span class="glyphicon glyphicon-plus"></span></button>
+                        </form>
+                    </td>
                     {% endif %}
                 </tr>
                 {% set counter = counter + 1 %}
@@ -86,7 +90,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title">Residents</h4>
+                    <h3 class="modal-title">Residents</h3>
                 </div>
                 <div class="modal-body">
                     {% set resident_table_header = ['Name', 'Height', 'Mass', 'Skin colour', 'Hair colour', 'Eye colour', 'Birth year', 'Gender'] %}
