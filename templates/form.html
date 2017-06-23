@@ -38,11 +38,13 @@
             <p class="text-warning">Wrong password or user doesn't exist.</p>
             {% endif %}
         </div>
+        {% if action == 'Login' %}
         <div class="checkbox">
             <label>
             <input type="checkbox" name="rebel"> I'm a Rebel
             </label>
         </div>
+        {% endif %}
         <button type="submit" class="btn btn-default">{{ action }}</button>
     </form>
     </div>
