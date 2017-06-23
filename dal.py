@@ -1,5 +1,7 @@
 import psycopg2
+import json
 from credentials import connection_data
+from psycopg2.extras import RealDictCursor
 
 
 def establish_connection():
@@ -25,6 +27,16 @@ def get_data_from_table(sql_string, sql_variables=None):
     cursor.close()
     conn.close()
     return result_set
+
+
+def get_json_from_table(sql_string, sql_variables=None):
+    conn = establish_connection()
+    cursor = conn.cursor(cursor_factory=RealDictCursor)
+    cursor.execute(sql_string, sql_variables)
+    result = json.dumps(cursor.fetchall(), indent=2)
+    cursor.close()
+    conn.close()
+    return result
 
 
 def modify_table(sql_string, sql_variables=None):
