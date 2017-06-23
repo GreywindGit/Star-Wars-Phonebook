@@ -54,7 +54,7 @@ def do_register():
     hashed_password = hashlib.sha256(str.encode(password)).hexdigest()
     user_id = bll.register_user(username, hashed_password)
     if user_id > 0:
-        return redirect('/')
+        return redirect('/login')
     else:
         return render_template('form.html', action='Register', route='/register', title='Registration',
                                reg_error=True, username=username)
