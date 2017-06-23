@@ -132,7 +132,6 @@ function displayResidents(residentURLs) {
 
 function displayPlanets(result) {
     for (let i = 0; i < result.length; i++) {
-        console.log(result[i])
         $.get('https://swapi.co/api/planets/' + result[i]['planet_id'] + '/', function(planetData) {
             $('#planet-modal-table').append('<tr class="modal-row" id="pmtable-row-' + i + '"></tr>');
             $('#pmtable-row-' + i).append('<td>' + planetData['name'] + '</td>');
