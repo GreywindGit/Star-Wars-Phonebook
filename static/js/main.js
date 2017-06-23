@@ -27,6 +27,14 @@ $(document).ready(function() {
             updatePageButtons(newData);
         })
     })
+    $('#planets-modal').on('show.bs.modal', function(event) {
+        var button = $(event.relatedTarget);
+        var modal = $(this);
+        modal.find('.modal-row').remove();
+        $.getJSON('/voted-planets', function(result) {
+            displayPlanets(result);
+        });
+    })
 })
 
 
@@ -74,7 +82,7 @@ function changeTableData(newData) {
         }
         $.get('/login_status', function(user_result) {
             if (user_result.length > 0) {
-                $("#data-row-" + i).append('<td><form action="/vote" method="GET"><button type="submit class="btn btn-default btn-vote" name="planet-url"\
+                $("#data-row-" + i).append('<td><form action="/vote" method="GET"><button type="submit" class="btn btn-default btn-vote" name="planet-url"\
                                            value="' + planet['url'] + '"><span class="glyphicon glyphicon-plus"></span></button></form></td>');
             }
         });
@@ -112,6 +120,18 @@ function displayResidents(residentURLs) {
             $('#mtable-row-' + i).append('<td>' + resident['eye_color'] + '</td>');
             $('#mtable-row-' + i).append('<td>' + resident['birth_year'] + '</td>');
             $('#mtable-row-' + i).append('<td>' + resident['gender'] + '</td>');
+        })
+    }
+}
+
+
+function displayPlanets(result) {
+    for (let i = 0; i < result.length; i++) {
+        console.log(result[i])
+        $.get('https://swapi.co/api/planets/' + result[i]['planet_id'] + '/', function(planetData) {
+            $('#planet-modal-table').append('<tr class="modal-row" id="pmtable-row-' + i + '"></tr>');
+            $('#pmtable-row-' + i).append('<td>' + planetData['name'] + '</td>');
+            $('#pmtable-row-' + i).append('<td>' + result[i]['votes'] + '</td>');
         })
     }
 }

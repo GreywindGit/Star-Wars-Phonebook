@@ -82,6 +82,7 @@
             {% endfor %}
         </table>
     </div>
+    <button class="btn btn-info" id="btn-voted" data-toggle="modal" data-target="#planets-modal">Most popular planets</button>
   </div>
 
   <!-- Residents Modal -->
@@ -97,6 +98,31 @@
                     <table class="table table-bordered table-striped" id="modal-table">
                         <tr id="mtable-header" class="info">
                             {% for attribute in resident_table_header %}
+                            <td> {{ attribute }} </td>
+                            {% endfor %}
+                        </tr>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Voted Planets Modal -->
+    <div id="planets-modal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h3 class="modal-title">The Universe's Favourite Travel Locations</h3>
+                </div>
+                <div class="modal-body">
+                    {% set planets_table_header = ['Name', 'Votes'] %}
+                    <table class="table table-bordered table-striped" id="planet-modal-table">
+                        <tr id="ptable-header" class="info">
+                            {% for attribute in planets_table_header %}
                             <td> {{ attribute }} </td>
                             {% endfor %}
                         </tr>
