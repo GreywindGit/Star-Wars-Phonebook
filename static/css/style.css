@@ -19,12 +19,17 @@ td {
     text-align: right;
 }
 
-#main-table-header, #mtable-header {
+#main-table-header, #mtable-header, #ptable-header {
     font-weight: bold;
 }
 
 form {
     width: 25%;
+}
+
+#btn-voted {
+    display: block;
+    margin: auto;
 }
 
 .main-logo {
