@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, session, flash
+from flask import Flask, render_template, request, redirect, session
 import requests
 import bll
 import hashlib
@@ -81,7 +81,7 @@ def do_vote():
     submission_time = datetime.now().replace(microsecond=0)
     user_id = session['userid']
     bll.insert_vote(planet_id, user_id, submission_time)
-    return redirect(request.referrer)
+    return 'Ok'
 
 
 @app.route('/voted-planets')

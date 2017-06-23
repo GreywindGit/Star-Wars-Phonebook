@@ -35,6 +35,11 @@ $(document).ready(function() {
             displayPlanets(result);
         });
     })
+    $('#main-table').on('click', '.btn-vote', function() {
+        $.get('/vote', { 'planet-url' : $(this).data('planet-url')}, function(result) {
+            $('#vote-modal').modal({ 'show': true});
+        })
+    })
 })
 
 
@@ -82,8 +87,8 @@ function changeTableData(newData) {
         }
         $.get('/login_status', function(user_result) {
             if (user_result.length > 0) {
-                $("#data-row-" + i).append('<td><form action="/vote" method="GET"><button type="submit" class="btn btn-default btn-vote" name="planet-url"\
-                                           value="' + planet['url'] + '"><span class="glyphicon glyphicon-plus"></span></button></form></td>');
+                $("#data-row-" + i).append('<td><button class="btn btn-default btn-vote" data-planet-url="' + planet['url'] +
+                                           '"><span class="glyphicon glyphicon-plus"></span></button></td>');
             }
         });
     }
