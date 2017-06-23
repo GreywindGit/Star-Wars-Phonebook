@@ -10,7 +10,7 @@ body {
     margin-left: 2%;
 }
 
-#table-wrapper {
+#table-wrapper, #vote-btn-wrap {
     margin-top: 1.5em;
     width: 80%;
 }
