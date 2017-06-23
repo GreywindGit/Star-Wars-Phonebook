@@ -35,6 +35,7 @@ def do_login():
         return render_template('rebellion.html')
     if user_id:
         session['username'] = username
+        session['userid'] = user_id
         return redirect('/')
     else:
         return render_template('form.html', action='Login', route='/login', title='Login',
@@ -77,9 +78,15 @@ def do_vote():
     planet_url = request.args.get('planet-url')
     planet_id = planet_url.split('/')[-2]
     submission_time = datetime.now().replace(microsecond=0)
-    user_id = bll.get_user_id(session['username'])
+    user_id = session['userid']
     bll.insert_vote(planet_id, user_id, submission_time)
     return redirect(request.referrer)
+
+
+@app.route('/voted-planets')
+def get_voted_planets():
+    voted_planets = bll.get_voted_planets()
+    return voted_planets
 
 
 if __name__ == '__main__':
