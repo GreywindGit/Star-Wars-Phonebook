@@ -19,6 +19,10 @@ td {
     text-align: right;
 }
 
+.modal-body h4 {
+    text-align: center;
+}
+
 #main-table-header, #mtable-header, #ptable-header {
     font-weight: bold;
 }
