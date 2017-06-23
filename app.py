@@ -63,6 +63,7 @@ def do_register():
 @app.route('/logout')
 def do_logout():
     session.pop('username', None)
+    session.pop('userid', None)
     return redirect(request.referrer)
 
 
