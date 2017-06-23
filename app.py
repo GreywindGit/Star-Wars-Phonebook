@@ -90,5 +90,10 @@ def get_voted_planets():
     return voted_planets
 
 
+@app.errorhandler(404)
+def pane_not_found(e):
+    return render_template('404.html'), 404
+
+
 if __name__ == '__main__':
-    app.run(debug=None)
+    app.run(debug=True)

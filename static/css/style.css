@@ -2,7 +2,7 @@ body {
     font-family: 'ITC Serif Gothic', serif;
 }
 
-.page-header {
+body > .page-header {
     margin-left: 1%;
 }
 
