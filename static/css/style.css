@@ -48,6 +48,19 @@ form {
     margin: auto;
 }
 
+.tarkin {
+    font-style: italic;
+    text-align: right;
+}
+
+.solo {
+    margin-left: -20%;
+}
+
+.img-fluid {
+    max-width: 80%;
+    height: auto;
+}
 @font-face {
     font-family: 'ITC Serif Gothic';
     src: url(/static/font/itc-serif-gothic.otf);
