@@ -85,12 +85,10 @@ function changeTableData(newData) {
                                         planet['name'] + '" data-planet-url="' + planet['url'] + '">' + planet['residents'].length + ' resident' + 
                                         residentSuffix + '</button></td>');
         }
-        $.get('/login_status', function(user_result) {
-            if (user_result.length > 0) {
-                $("#data-row-" + i).append('<td><button class="btn btn-default btn-vote" data-planet-url="' + planet['url'] +
-                                           '"><span class="glyphicon glyphicon-plus"></span></button></td>');
-            }
-        });
+        if (!$("#btn-login").length) {
+            $("#data-row-" + i).append('<td><button class="btn btn-default btn-vote" data-planet-url="' + planet['url'] +
+                                        '"><span class="glyphicon glyphicon-plus"></span></button></td>');
+        }
     }
 }
 
