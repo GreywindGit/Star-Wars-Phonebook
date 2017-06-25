@@ -34,9 +34,6 @@
             <label for="password">Password</label>
             <input type="password" class="form-control" id="password" name="password" placeholder="Password" required minlength="8">
             <p class="help-block">Password must be at least 8 character long.</p>
-            {% if login_error %}
-            <p class="text-warning">Wrong password or user doesn't exist.</p>
-            {% endif %}
         </div>
         {% if action == 'Login' %}
         <div class="checkbox">
@@ -46,7 +43,10 @@
         </div>
         {% endif %}
         <button type="submit" class="btn btn-default">{{ action }}</button>
-    </form>
+    </form><br>
+    {% if login_error %}
+        <p class="text-warning">Wrong password or user doesn't exist.</p>
+    {% endif %}
     </div>
 </body>
 </html>

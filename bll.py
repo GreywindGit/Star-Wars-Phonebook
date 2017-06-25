@@ -19,7 +19,9 @@ def register_user(username, password):
 def validate_user(username, password):
     sql_string = "SELECT ID FROM swuser WHERE username = %s AND password = %s;"
     sql_variables = (username, password)
-    user_id = dal.get_data_from_table(sql_string, sql_variables)[0][0]
+    user_id = dal.get_data_from_table(sql_string, sql_variables)
+    if user_id:
+        user_id = user_id[0][0]
     return user_id
 
 
